@@ -1,0 +1,166 @@
+PACKAGE com.omilia.EnterTask;
+
+DECLARE WORD;
+W{->MARK(WORD)};
+
+DECLARE CARD;
+W{REGEXP ("card")->MARK(CARD)};
+
+DECLARE BALANCE;
+W{REGEXP ("balance")->MARK(BALANCE)};
+
+DECLARE CREDIT;
+W{REGEXP ("credit")->MARK(CREDIT)};
+
+DECLARE LIMIT;
+W{REGEXP ("limit")->MARK(LIMIT)};
+
+DECLARE PAYMENT;
+W{REGEXP ("payment")->MARK(PAYMENT)};
+
+DECLARE PIN;
+W{REGEXP ("pin")->MARK(PIN)};
+
+
+INT wordscount;
+Document {TOTALCOUNT (WORD,1,10,wordscount)};
+
+// Dictionaries
+
+WORDTABLE Actions ='Actions.csv';
+DECLARE Annotation Action (STRING meaning);
+Document {-> MARKTABLE (Action, 1, Actions, "meaning" = 2)};
+
+WORDTABLE Entity = 'Entity.csv';
+DECLARE Annotation Entities (STRING meaning);
+Document{->MARKTABLE(Entities, 1, Entity, "meaning" = 2)};
+
+WORDLIST Articles ='Articles.txt';
+DECLARE Article;
+Document {-> MARKFAST(Article, Articles)};
+
+WORDTABLE Modifiers ='Modifiers.csv';
+DECLARE Annotation Modifier (STRING meaning);
+Document {-> MARKTABLE (Modifier, 1, Modifiers, "meaning" = 2)};
+
+WORDLIST Pronouns ='Pronouns.txt';
+DECLARE Pronoun;
+Document {-> MARKFAST(Pronoun, Pronouns)};
+
+WORDTABLE Questwords ='Questwords.csv';
+DECLARE Annotation Questword (STRING meaning);
+Document {-> MARKTABLE (Questword, 1, Questwords, "meaning" = 2)};
+
+WORDTABLE Cardnames ='Cardnames.csv';
+DECLARE Annotation Cardname (STRING meaning);
+Document {-> MARKTABLE (Cardname, 1, Cardnames, "meaning" = 2)};
+
+// Balance transfer
+
+DECLARE BALANCE_TRANSFER;
+BALANCE # Entities{FEATURE("meaning", "BALANCE") -> MARK(BALANCE_TRANSFER), SHIFT(BALANCE_TRANSFER,1,2)};
+Action {FEATURE("meaning", "TRANSFER")} % Entities {FEATURE ("meaning", "BALANCE") -> MARK(BALANCE_TRANSFER), SHIFT(BALANCE_TRANSFER,1,2)};
+Action {FEATURE("meaning", "ORDER")} % BALANCE + Entities {FEATURE ("meaning", "AMOUNT")-> MARK(BALANCE_TRANSFER), SHIFT(BALANCE_TRANSFER,1,2)};
+Action {FEATURE("meaning", "ORDER")} % Modifier % BALANCE + Entities {FEATURE ("meaning", "TRANSFER") -> MARK(BALANCE_TRANSFER), SHIFT(BALANCE_TRANSFER,1,2)};
+Action {FEATURE("meaning", "REQUEST")} % Modifier + BALANCE {-> MARK(BALANCE_TRANSFER), SHIFT(BALANCE_TRANSFER,1,2)};
+W{REGEXP ("needed")} % BALANCE{->MARK(BALANCE_TRANSFER), SHIFT(BALANCE_TRANSFER,1,2)};
+
+
+// Balance Inquiry
+
+DECLARE BALANCE_INQUIRY;
+BALANCE # Entities{FEATURE("meaning", "BALANCE") -> MARK(BALANCE_INQUIRY), SHIFT(BALANCE_INQUIRY,1,2)};
+Questword {FEATURE("meaning", "WHAT")} % Pronoun + BALANCE{-> MARK(BALANCE_INQUIRY), SHIFT(BALANCE_INQUIRY,1,2)};
+Action {FEATURE("meaning", "REQUEST")} % Entities {FEATURE ("meaning", "BALANCE") -> MARK(BALANCE_INQUIRY), SHIFT(BALANCE_INQUIRY,1,2)};
+Action {FEATURE("meaning", "REQUEST")} % Modifier + Entities {FEATURE ("meaning", "BALANCE") -> MARK(BALANCE_INQUIRY), SHIFT(BALANCE_INQUIRY,1,2)};
+Action {FEATURE("meaning", "REQUEST")} % Modifier + BALANCE {-> MARK(BALANCE_INQUIRY), SHIFT(BALANCE_INQUIRY,1,2)};
+W{REGEXP ("needed")} % BALANCE{->MARK(BALANCE_INQUIRY), SHIFT(BALANCE_INQUIRY,1,2)};
+
+
+// Apply for a card (personal/business)
+
+DECLARE APPLY_FOR_CARD;
+CARD # Entities{FEATURE("meaning", "APPLICATION") -> MARK(APPLY_FOR_CARD), SHIFT(APPLY_FOR_CARD,1,2)};
+Action {FEATURE("meaning", "APPLY")} % Cardname {FEATURE ("meaning", "MASTERCARD") -> MARK(APPLY_FOR_CARD), SHIFT(APPLY_FOR_CARD,1,2)};
+Action {FEATURE("meaning", "APPLY")} % Modifier + Entities {FEATURE ("meaning", "CREDIT") -> MARK(APPLY_FOR_CARD), SHIFT(APPLY_FOR_CARD,1,2)};
+Action {FEATURE("meaning", "APPLY")} % Modifier + CARD {-> MARK(APPLY_FOR_CARD), SHIFT(APPLY_FOR_CARD,1,2)};
+W{REGEXP ("needed")} % CARD{->MARK(APPLY_FOR_CARD), SHIFT(APPLY_FOR_CARD,1,2)};
+
+
+// Activate my card 
+
+DECLARE ACTIVATE_CARD;
+CARD # Entities{FEATURE("meaning", "ACTIVATION") -> MARK(ACTIVATE_CARD), SHIFT(ACTIVATE_CARD,1,2)};
+Action {FEATURE("meaning", "ACTIVATE")} % CARD {-> MARK(ACTIVATE_CARD), SHIFT(ACTIVATE_CARD,1,2)};
+CARD % Action {FEATURE ("meaning", "ACTIVATE") -> MARK(ACTIVATE_CARD), SHIFT(ACTIVATE_CARD,1,2)};
+Action {FEATURE("meaning", "ACTIVATE")} % Pronoun + CARD {-> MARK(ACTIVATE_CARD), SHIFT(ACTIVATE_CARD,1,2)};
+W{REGEXP ("needed")} % CARD{->MARK(ACTIVATE_CARD), SHIFT(ACTIVATE_CARD,1,2)};
+
+
+// Cancel card
+
+DECLARE CANCEL_CARD;
+CARD # Entities{FEATURE("meaning", "CANCELATION") -> MARK(CANCEL_CARD), SHIFT(CANCEL_CARD,1,2)};
+Action {FEATURE("meaning", "CANCEL")} % CARD {-> MARK(CANCEL_CARD), SHIFT(CANCEL_CARD,1,2)};
+Action {FEATURE("meaning", "CANCEL")} % Pronoun + CARD {-> MARK(CANCEL_CARD), SHIFT(CANCEL_CARD,1,2)};
+W{REGEXP ("needed")} % CARD{->MARK(ACTIVATE_CARD), SHIFT(CANCEL_CARD,1,2)};
+
+
+// Available credit
+
+DECLARE AVAILABLE_CREDIT;
+CREDIT # Modifier{FEATURE("meaning", "AVAILABLE") -> MARK(AVAILABLE_CREDIT), SHIFT(AVAILABLE_CREDIT,1,2)};
+Modifier {FEATURE("meaning", "AVAILABLE")} % CREDIT {-> MARK(AVAILABLE_CREDIT), SHIFT(AVAILABLE_CREDIT,1,2)};
+Questword {FEATURE("meaning", "HOWMUCH")} % CREDIT {-> MARK(AVAILABLE_CREDIT), SHIFT(AVAILABLE_CREDIT,1,2)};
+Entities {FEATURE("meaning", "CREDIT")} % Modifier{FEATURE("meaning", "AVAILABLE") -> MARK(AVAILABLE_CREDIT), SHIFT(AVAILABLE_CREDIT,1,2)};
+Modifier {FEATURE("meaning", "AVAILABLE")} % Entities {FEATURE("meaning", "BALANCE") -> MARK(AVAILABLE_CREDIT), SHIFT(AVAILABLE_CREDIT,1,2)};
+W{REGEXP ("needed")} % CREDIT{->MARK(AVAILABLE_CREDIT), SHIFT(AVAILABLE_CREDIT,1,2)};
+
+
+// Credit limit inquiry/change limit
+
+DECLARE CREDIT_LIMIT;
+LIMIT # Entities{FEATURE("meaning", "LIMIT") -> MARK(CREDIT_LIMIT), SHIFT(CREDIT_LIMIT,1,2)};
+Modifier {FEATURE("meaning", "AVAILABLE")} % LIMIT {-> MARK(CREDIT_LIMIT), SHIFT(CREDIT_LIMIT,1,2)};
+Questword {FEATURE("meaning", "WHAT")} % Pronoun + Entities {FEATURE("meaning", "CASH")} % LIMIT {-> MARK(CREDIT_LIMIT), SHIFT(CREDIT_LIMIT,1,2)};
+Modifier {FEATURE("meaning", "SPENDING")} % LIMIT {-> MARK(CREDIT_LIMIT), SHIFT(CREDIT_LIMIT,1,2)};
+Action {FEATURE("meaning", "CHANGE")} % Modifier {FEATURE("meaning", "SPENDING")} % LIMIT {-> MARK(CREDIT_LIMIT), SHIFT(CREDIT_LIMIT,1,2)};
+Action {FEATURE("meaning", "DECREASE")} % Pronoun + Entities {FEATURE("meaning", "CREDIT")} % LIMIT {-> MARK(CREDIT_LIMIT), SHIFT(CREDIT_LIMIT,1,2)};
+Action {FEATURE("meaning", "REQUEST")} % Entities {FEATURE ("meaning", "CREDIT")} % Entities {FEATURE ("meaning", "LINE")} % Action {FEATURE("meaning", "REQUEST")-> MARK(CREDIT_LIMIT), SHIFT(CREDIT_LIMIT,1,2)};
+W{REGEXP ("needed")} % LIMIT{->MARK(CREDIT_LIMIT), SHIFT(CREDIT_LIMIT,1,2)};
+
+
+// Payment
+
+DECLARE PAYMENT_OPERATION;
+PAYMENT # Entities{FEATURE("meaning", "PAYMENT") -> MARK(PAYMENT_OPERATION), SHIFT(PAYMENT_OPERATION,1,2)};
+Entities{FEATURE("meaning", "CARD")} % PAYMENT {-> MARK(PAYMENT_OPERATION), SHIFT(PAYMENT_OPERATION,1,2)};
+Action {FEATURE("meaning", "MAKE")} % PAYMENT {-> MARK(PAYMENT_OPERATION), SHIFT(PAYMENT_OPERATION,1,2)};
+Action {FEATURE("meaning", "PAY")} % Modifier + Entities {FEATURE ("meaning", "BALANCE") -> MARK(PAYMENT_OPERATION), SHIFT(PAYMENT_OPERATION,1,2)};
+Action {FEATURE("meaning", "PAY")} % Modifier + Entities {FEATURE ("meaning", "CARDBILL") -> MARK(PAYMENT_OPERATION), SHIFT(PAYMENT_OPERATION,1,2)};
+W{REGEXP ("needed")} % PAYMENT{->MARK(PAYMENT_OPERATION), SHIFT(PAYMENT_OPERATION,1,2)};
+
+
+DECLARE PAYMENT_MINIMUM;
+PAYMENT # Modifier{FEATURE("meaning", "MINIMUM") -> MARK(PAYMENT_MINIMUM), SHIFT(PAYMENT_MINIMUM,1,2)};
+Questword {FEATURE("meaning", "WHAT")} % Article + Modifier {FEATURE("meaning", "MINIMUM")} % PAYMENT {-> MARK(CREDIT_LIMIT), SHIFT(CREDIT_LIMIT,1,2)};
+Pronoun % PAYMENT + Modifier {FEATURE("meaning", "MINIMUM") -> MARK(PAYMENT_MINIMUM), SHIFT(PAYMENT_MINIMUM,1,2)};
+W{REGEXP ("needed")} % PAYMENT{->MARK(PAYMENT_MINIMUM), SHIFT(PAYMENT_MINIMUM,1,2)};
+
+
+// Pin-Issues
+
+DECLARE PIN_ISSUES;
+PIN # Entities{FEATURE("meaning", "PIN") -> MARK(PIN_ISSUES), SHIFT(PIN_ISSUES,1,2)};
+Action {FEATURE("meaning", "HELP")} % Pronoun + PIN {-> MARK(PIN_ISSUES), SHIFT(PIN_ISSUES,1,2)};
+Entities {FEATURE("meaning", "PIN")} % Action {FEATURE("meaning", "WORK") -> MARK(PIN_ISSUES), SHIFT(PIN_ISSUES,1,2)};
+Action {FEATURE("meaning", "CHANGE")} % Entities {FEATURE("meaning", "PIN") -> MARK(PIN_ISSUES), SHIFT(PIN_ISSUES,1,2)};
+Action {FEATURE("meaning", "FORGOT")} % Entities {FEATURE("meaning", "PIN") -> MARK(PIN_ISSUES), SHIFT(PIN_ISSUES,1,2)};
+Action {FEATURE("meaning", "REQUEST")} % Entities {FEATURE("meaning", "PIN") -> MARK(PIN_ISSUES), SHIFT(PIN_ISSUES,1,2)};
+W{REGEXP ("needed")} % PIN{->MARK(PIN_ISSUES), SHIFT(PIN_ISSUES,1,2)};
+
+
+
+
+
+

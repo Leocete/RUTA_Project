@@ -1,0 +1,28 @@
+pin;PIN;
+PIN;PIN;
+pin code;PIN;
+pin number;PIN;
+credit card pin;PIN;
+credit card;CARD;
+card;CARD;
+cc;CARD;
+card bill: CARDBILL;
+payment;PAYMENT;
+card payment;PAYMENT
+account;ACCOUNT;
+balance;BALANCE;
+limit;LIMIT;
+limits;LIMIT;
+balance;BALANCE;
+line:LINE;
+cash;CASH;
+credit;CREDIT;
+Credit;CREDIT;
+credits;CREDIT;
+relative;RELATIVE;
+transfer;TRANSFER;
+rate;RATE;
+application;APPLICATION;
+activation;ACTIVATION;
+cancelation;CANCELATION;
+amount;AMOUNT;

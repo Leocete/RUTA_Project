@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
+    <name>com.omilia.EnterTask.mainTypeSystem</name>
+    <imports>
+        <import location="../../../BasicTypeSystem.xml"/>
+    </imports>
+    <types>
+        <typeDescription>
+            <name>com.omilia.EnterTask.main.WORD</name>
+            <description>Type defined in com.omilia.EnterTask.main</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>com.omilia.EnterTask.main.CARD</name>
+            <description>Type defined in com.omilia.EnterTask.main</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>com.omilia.EnterTask.main.BALANCE</name>
+            <description>Type defined in com.omilia.EnterTask.main</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>com.omilia.EnterTask.main.CREDIT</name>
+            <description>Type defined in com.omilia.EnterTask.main</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>com.omilia.EnterTask.main.LIMIT</name>
+            <description>Type defined in com.omilia.EnterTask.main</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>com.omilia.EnterTask.main.PAYMENT</name>
+            <description>Type defined in com.omilia.EnterTask.main</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>com.omilia.EnterTask.main.PIN</name>
+            <description>Type defined in com.omilia.EnterTask.main</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>com.omilia.EnterTask.main.Action</name>
+            <description>Type defined in com.omilia.EnterTask.main</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+            <features>
+                <featureDescription>
+                    <name>meaning</name>
+                    <description>meaning</description>
+                    <rangeTypeName>uima.cas.String</rangeTypeName>
+                </featureDescription>
+            </features>
+        </typeDescription>
+        <typeDescription>
+            <name>com.omilia.EnterTask.main.Entities</name>
+            <description>Type defined in com.omilia.EnterTask.main</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+            <features>
+                <featureDescription>
+                    <name>meaning</name>
+                    <description>meaning</description>
+                    <rangeTypeName>uima.cas.String</rangeTypeName>
+                </featureDescription>
+            </features>
+        </typeDescription>
+        <typeDescription>
+            <name>com.omilia.EnterTask.main.Article</name>
+            <description>Type defined in com.omilia.EnterTask.main</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>com.omilia.EnterTask.main.Modifier</name>
+            <description>Type defined in com.omilia.EnterTask.main</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+            <features>
+                <featureDescription>
+                    <name>meaning</name>
+                    <description>meaning</description>
+                    <rangeTypeName>uima.cas.String</rangeTypeName>
+                </featureDescription>
+            </features>
+        </typeDescription>
+        <typeDescription>
+            <name>com.omilia.EnterTask.main.Pronoun</name>
+            <description>Type defined in com.omilia.EnterTask.main</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>com.omilia.EnterTask.main.Questword</name>
+            <description>Type defined in com.omilia.EnterTask.main</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+            <features>
+                <featureDescription>
+                    <name>meaning</name>
+                    <description>meaning</description>
+                    <rangeTypeName>uima.cas.String</rangeTypeName>
+                </featureDescription>
+            </features>
+        </typeDescription>
+        <typeDescription>
+            <name>com.omilia.EnterTask.main.Cardname</name>
+            <description>Type defined in com.omilia.EnterTask.main</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+            <features>
+                <featureDescription>
+                    <name>meaning</name>
+                    <description>meaning</description>
+                    <rangeTypeName>uima.cas.String</rangeTypeName>
+                </featureDescription>
+            </features>
+        </typeDescription>
+        <typeDescription>
+            <name>com.omilia.EnterTask.main.BALANCE_TRANSFER</name>
+            <description>Type defined in com.omilia.EnterTask.main</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>com.omilia.EnterTask.main.BALANCE_INQUIRY</name>
+            <description>Type defined in com.omilia.EnterTask.main</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>com.omilia.EnterTask.main.APPLY_FOR_CARD</name>
+            <description>Type defined in com.omilia.EnterTask.main</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>com.omilia.EnterTask.main.ACTIVATE_CARD</name>
+            <description>Type defined in com.omilia.EnterTask.main</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>com.omilia.EnterTask.main.CANCEL_CARD</name>
+            <description>Type defined in com.omilia.EnterTask.main</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>com.omilia.EnterTask.main.AVAILABLE_CREDIT</name>
+            <description>Type defined in com.omilia.EnterTask.main</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>com.omilia.EnterTask.main.CREDIT_LIMIT</name>
+            <description>Type defined in com.omilia.EnterTask.main</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>com.omilia.EnterTask.main.PAYMENT_OPERATION</name>
+            <description>Type defined in com.omilia.EnterTask.main</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>com.omilia.EnterTask.main.PAYMENT_MINIMUM</name>
+            <description>Type defined in com.omilia.EnterTask.main</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>com.omilia.EnterTask.main.PIN_ISSUES</name>
+            <description>Type defined in com.omilia.EnterTask.main</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>com.omilia.EnterTask.main.WORD</name>
+            <description>Type defined in com.omilia.EnterTask.main</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>com.omilia.EnterTask.main.CARD</name>
+            <description>Type defined in com.omilia.EnterTask.main</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>com.omilia.EnterTask.main.BALANCE</name>
+            <description>Type defined in com.omilia.EnterTask.main</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>com.omilia.EnterTask.main.CREDIT</name>
+            <description>Type defined in com.omilia.EnterTask.main</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>com.omilia.EnterTask.main.LIMIT</name>
+            <description>Type defined in com.omilia.EnterTask.main</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>com.omilia.EnterTask.main.PAYMENT</name>
+            <description>Type defined in com.omilia.EnterTask.main</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>com.omilia.EnterTask.main.PIN</name>
+            <description>Type defined in com.omilia.EnterTask.main</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>com.omilia.EnterTask.main.Action</name>
+            <description>Type defined in com.omilia.EnterTask.main</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+            <features>
+                <featureDescription>
+                    <name>meaning</name>
+                    <description>meaning</description>
+                    <rangeTypeName>uima.cas.String</rangeTypeName>
+                </featureDescription>
+            </features>
+        </typeDescription>
+        <typeDescription>
+            <name>com.omilia.EnterTask.main.Entities</name>
+            <description>Type defined in com.omilia.EnterTask.main</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+            <features>
+                <featureDescription>
+                    <name>meaning</name>
+                    <description>meaning</description>
+                    <rangeTypeName>uima.cas.String</rangeTypeName>
+                </featureDescription>
+            </features>
+        </typeDescription>
+        <typeDescription>
+            <name>com.omilia.EnterTask.main.Article</name>
+            <description>Type defined in com.omilia.EnterTask.main</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>com.omilia.EnterTask.main.Modifier</name>
+            <description>Type defined in com.omilia.EnterTask.main</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+            <features>
+                <featureDescription>
+                    <name>meaning</name>
+                    <description>meaning</description>
+                    <rangeTypeName>uima.cas.String</rangeTypeName>
+                </featureDescription>
+            </features>
+        </typeDescription>
+        <typeDescription>
+            <name>com.omilia.EnterTask.main.Pronoun</name>
+            <description>Type defined in com.omilia.EnterTask.main</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>com.omilia.EnterTask.main.Questword</name>
+            <description>Type defined in com.omilia.EnterTask.main</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+            <features>
+                <featureDescription>
+                    <name>meaning</name>
+                    <description>meaning</description>
+                    <rangeTypeName>uima.cas.String</rangeTypeName>
+                </featureDescription>
+            </features>
+        </typeDescription>
+        <typeDescription>
+            <name>com.omilia.EnterTask.main.Cardname</name>
+            <description>Type defined in com.omilia.EnterTask.main</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+            <features>
+                <featureDescription>
+                    <name>meaning</name>
+                    <description>meaning</description>
+                    <rangeTypeName>uima.cas.String</rangeTypeName>
+                </featureDescription>
+            </features>
+        </typeDescription>
+        <typeDescription>
+            <name>com.omilia.EnterTask.main.BALANCE_TRANSFER</name>
+            <description>Type defined in com.omilia.EnterTask.main</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>com.omilia.EnterTask.main.BALANCE_INQUIRY</name>
+            <description>Type defined in com.omilia.EnterTask.main</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>com.omilia.EnterTask.main.APPLY_FOR_CARD</name>
+            <description>Type defined in com.omilia.EnterTask.main</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>com.omilia.EnterTask.main.ACTIVATE_CARD</name>
+            <description>Type defined in com.omilia.EnterTask.main</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>com.omilia.EnterTask.main.CANCEL_CARD</name>
+            <description>Type defined in com.omilia.EnterTask.main</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>com.omilia.EnterTask.main.AVAILABLE_CREDIT</name>
+            <description>Type defined in com.omilia.EnterTask.main</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>com.omilia.EnterTask.main.CREDIT_LIMIT</name>
+            <description>Type defined in com.omilia.EnterTask.main</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>com.omilia.EnterTask.main.PAYMENT_OPERATION</name>
+            <description>Type defined in com.omilia.EnterTask.main</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>com.omilia.EnterTask.main.PAYMENT_MINIMUM</name>
+            <description>Type defined in com.omilia.EnterTask.main</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>com.omilia.EnterTask.main.PIN_ISSUES</name>
+            <description>Type defined in com.omilia.EnterTask.main</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+    </types>
+</typeSystemDescription>
